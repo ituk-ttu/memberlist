@@ -4,11 +4,11 @@
     table.table
       thead
         tr
-          th(scope="col") idee
+          th(scope="col") ID
           th(scope="col") Nimi
           th(scope="col") Isikukood
           th(scope="col") E-mail
-          th(scope="col") Mitte staatus
+          th(scope="col") staatus
       tbody
         tr(v-for="person in people")
           td {{ person.id }}
