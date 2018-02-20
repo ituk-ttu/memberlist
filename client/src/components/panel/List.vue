@@ -8,7 +8,7 @@
           th(scope="col") Nimi
           th(scope="col") Isikukood
           th(scope="col") E-mail
-          th(scope="col") staatus
+          th(scope="col") Staatus
       tbody
         tr(v-for="person in people")
           td {{ person.id }}
