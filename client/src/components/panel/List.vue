@@ -4,7 +4,7 @@
     table.table
       thead
         tr
-          th(scope="col") ID
+          th(scope="col") idee
           th(scope="col") Nimi
           th(scope="col") Isikukood
           th(scope="col") E-mail
