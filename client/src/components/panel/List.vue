@@ -1,5 +1,6 @@
 <template lang="pug">
-  div.container
+  .container
+    h2 Liikmed
     table.table
       thead
         tr
