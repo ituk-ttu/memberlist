@@ -18,23 +18,14 @@ public class Member {
 
     @Id @GeneratedValue @Getter
     private final long id;
-    @Getter @Setter
     private String name;
-    @Getter @Setter
     private String personalCode;
-    @Getter @Setter
     private String studentCode;
-    @Getter @Setter
     private String email;
-    @Getter @Setter
     private MemberStatus status;
-    @Getter @Setter
     private String cardNr;
-    @Getter @Setter
     private String phoneNr;
-    @Getter
     private LocalDate dateOfJoining;
-    @Getter
     private AccessCollection accessCollection;
 
     public void modifyAccessCollection(List<Door> doorsToRemove, List<Door> doorsToAdd) {

@@ -14,9 +14,8 @@ import java.util.List;
 public class AccessCollection {
 
 
-    @Id @GeneratedValue @Getter
+    @Id @GeneratedValue
     private final long id;
-    @Getter
     private List<Door> doors;
 
 

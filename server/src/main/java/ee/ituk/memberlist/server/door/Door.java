@@ -14,7 +14,6 @@ public class Door {
     @Id
     @GeneratedValue
     private final long id;
-    @Getter
     private String name;
 
 }
