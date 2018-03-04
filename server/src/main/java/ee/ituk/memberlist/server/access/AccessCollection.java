@@ -1,6 +1,7 @@
 package ee.ituk.memberlist.server.access;
 
 import ee.ituk.memberlist.server.door.Door;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 

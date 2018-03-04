@@ -34,3 +34,9 @@
     }
   }
 </script>
+
+<style scoped>
+  .navbar {
+    margin-bottom: 20px;
+  }
+</style>
