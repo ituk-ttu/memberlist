@@ -3,9 +3,6 @@ package ee.ituk.memberlist.server.member;
 
 import org.springframework.stereotype.Controller;
 
-import java.util.Collection;
-import java.util.HashMap;
-
 @Controller
 public class MemberController {
     private HashMap<Long, Member> memberList;
