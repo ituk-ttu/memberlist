@@ -1,14 +1,11 @@
 package ee.ituk.memberlist.server.member;
 
-import ee.ituk.memberlist.server.access.AccessCollection;
+import ee.ituk.memberlist.server.access.Access;
 import ee.ituk.memberlist.server.door.Door;
 import lombok.Data;
 import lombok.Getter;
-import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -26,11 +23,7 @@ public class Member {
     private String cardNr;
     private String phoneNr;
     private LocalDate dateOfJoining;
-    private AccessCollection accessCollection;
+    @OneToMany
+    private List<Access> accessesCollection;
 
-    public void modifyAccessCollection(List<Door> doorsToRemove, List<Door> doorsToAdd) {
-       //TODO: mõelda, kes see on kõige parem viis või on midagi paremat
-        this.accessCollection.addDoors(doorsToAdd);
-        this.accessCollection.removeDoors(doorsToRemove);
-    }
 }
