@@ -15,11 +15,13 @@
           td {{ person.name }}
           td {{ person.idCode }}
           td {{ person.email }}
-          td {{ person.status }}
+          td: member-status-label(:status="person.status")
 </template>
 
 <script>
+  import MemberStatusLabel from './MemberStatusLabel'
   export default {
+    components: {MemberStatusLabel},
     name: 'List',
     data () {
       return {
@@ -29,7 +31,7 @@
             'name': 'Ennis Bille',
             'email': 'ebille0@google.com.hk',
             'idCode': '71944763602',
-            'status': 'REPRESENTATIVE_BODY'
+            'status': 'REPRESENTATIVE'
           },
           {
             'id': 2,
@@ -43,21 +45,21 @@
             'name': 'Constance Manon',
             'email': 'cmanon2@exblog.jp',
             'idCode': '22543853391',
-            'status': 'LEFT'
+            'status': 'GONE'
           },
           {
             'id': 4,
             'name': 'Ronica Pennaman',
             'email': 'rpennaman3@issuu.com',
             'idCode': '75826420824',
-            'status': 'REPRESENTATIVE_BODY'
+            'status': 'REPRESENTATIVE'
           },
           {
             'id': 5,
             'name': 'Koral Pearn',
             'email': 'kpearn4@fastcompany.com',
             'idCode': '18339583650',
-            'status': 'REPRESENTATIVE_BODY'
+            'status': 'REPRESENTATIVE'
           },
           {
             'id': 6,
@@ -78,21 +80,21 @@
             'name': 'Rosemonde Fetherston',
             'email': 'rfetherston7@youku.com',
             'idCode': '00893410626',
-            'status': 'REPRESENTATIVE_BODY'
+            'status': 'REPRESENTATIVE'
           },
           {
             'id': 9,
             'name': 'Fanni Fermin',
             'email': 'ffermin8@amazon.co.jp',
             'idCode': '35198227150',
-            'status': 'LEFT'
+            'status': 'GONE'
           },
           {
             'id': 10,
             'name': 'Barbara Grestye',
             'email': 'bgrestye9@ucsd.edu',
             'idCode': '78581573775',
-            'status': 'REPRESENTATIVE_BODY'
+            'status': 'REPRESENTATIVE'
           }
         ]
       }
