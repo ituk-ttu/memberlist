@@ -1,7 +1,7 @@
 <template lang="pug">
   .container
     h2 Liikmed
-      router-link(:to="{ name: 'Member', params: { id: 'add'} }").btn.btn-success Lisa
+      router-link(:to="{ name: 'Member', params: { id: 'add'} }").btn.btn-success.float-right Lisa
     table.table
       thead
         tr
