@@ -1,6 +1,7 @@
 <template lang="pug">
   .container
     h2 Liikmed
+      router-link(:to="{ name: 'Member', params: { id: 'add'} }").btn.btn-success Lisa
     table.table
       thead
         tr
@@ -24,7 +25,7 @@
           td {{ person.email }}
           td: member-status-label(:status="person.status")
           td
-            router-link(:to="{ name: 'Member', params: { id: person.id } }") Vaata
+            router-link(:to="{ name: 'Member', params: { id: person.id } }").text-warning Muuda
 </template>
 
 <script>
@@ -44,7 +45,10 @@
     },
     computed: {
       searchedPeople () {
-        return this.people.filter(person => person.name.toLowerCase().includes(this.search.toLowerCase()) ||
+        return this.people.filter(person => person.name === null ||
+                                            person.personalCode === null ||
+                                            person.email === null ||
+                                            person.name.toLowerCase().includes(this.search.toLowerCase()) ||
                                             person.personalCode.toLowerCase().includes(this.search.toLowerCase()) ||
                                             person.email.toLowerCase().includes(this.search.toLowerCase()))
       }

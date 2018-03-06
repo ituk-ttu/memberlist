@@ -4,19 +4,19 @@
   .container(v-else)
     .form-group
       label.control-label Nimi:
-      input.form-control.form-control-lg(v-model="member.name")
+      input.form-control.form-control-lg(v-model="member.name" required)
     .form-group
       label.control-label E-post:
-      input.form-control.form-control-lg(v-model="member.email")
+      input.form-control.form-control-lg(v-model="member.email" required)
     .form-group
       label.control-label Isikukood:
-      input.form-control.form-control-lg(v-model="member.personalCode")
+      input.form-control.form-control-lg(v-model="member.personalCode" required)
     .form-group
       label.control-label Tudengikood:
-      input.form-control.form-control-lg(v-model="member.studentCode")
+      input.form-control.form-control-lg(v-model="member.studentCode" required)
     .form-group
       label.control-label Staatus
-      select.form-control.form-control-lg(v-model="member.status")
+      select.form-control.form-control-lg(v-model="member.status" required)
         option(value="ACTIVE") Aktiivgrupp
         option(value="BOARD") Juhatus
         option(value="REPRESENTATIVE") Volikogu
@@ -45,8 +45,12 @@
       }
     },
     mounted: function () {
-      let self = this
-      this.$http.get(this.$config.API_BASE + '/members/' + this.$route.params.id).then(res => { self.member = res.body })
+      if (this.$route.params.id !== 'add') {
+        let self = this
+        this.$http.get(this.$config.API_BASE + '/members/' + this.$route.params.id).then(res => { self.member = res.body })
+      } else {
+        this.member = {}
+      }
     }
   }
 </script>
