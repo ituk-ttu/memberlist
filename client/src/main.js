@@ -3,11 +3,17 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import VueConfig from 'vue-config';
 
 import './assets/scss/style.scss'
 import '../node_modules/bootstrap/js/dist/index'
 
 Vue.config.productionTip = false
+
+const config = {
+  API_BASE: process.env.API_BASE
+}
+Vue.use(VueConfig, config)
 
 /* eslint-disable no-new */
 new Vue({
