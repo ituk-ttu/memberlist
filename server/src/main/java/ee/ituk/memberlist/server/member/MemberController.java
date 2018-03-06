@@ -1,35 +1,39 @@
 package ee.ituk.memberlist.server.member;
 
 
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+
+@RestController
+@RequestMapping(value = "members")
+
 public class MemberController {
-    private HashMap<Long, Member> memberList;
+
+    private MemberService memberService;
 
 
-    public void addMember(Member member) {
-        memberList.put(member.getId(), Member.builder().id(member.getId())
-                                                       .name(member.getName())
-                                                       .personalCode(member.getPersonalCode())
-                                                       .studentCode(member.getStudentCode())
-                                                       .email(member.getEmail())
-                                                       .status(member.getStatus())
-                                                       .cardNr(member.getCardNr())
-                                                       .phoneNr(member.getPhoneNr())
-                                                       .dateOfJoining(member.getDateOfJoining())
-                                                       .accessCollection(member.getAccessCollection())
-                                                       .build());
+    public MemberController(MemberService memberService) {
+        this.memberService = memberService;
     }
 
 
-    public Collection<Member> getMemberList() {
-        return memberList.values();
+    @PostMapping(value = "add")
+    public Member addMember(@RequestBody Member member) {
+        return memberService.addMember(member);
     }
 
 
+    @GetMapping(value = "")
+    public List<Member> getAllMembers() {
+        return memberService.getAllMembers();
+    }
+
+
+    @GetMapping(value = "{Id}")
     public Member getMemberById(long id) {
-        return memberList.get(id);
+        return memberService.getMemberById(id);
     }
 
 
