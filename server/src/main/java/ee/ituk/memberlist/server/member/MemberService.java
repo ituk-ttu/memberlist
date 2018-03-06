@@ -21,8 +21,8 @@ public class MemberService {
         return memberRepository.findOne(id);
     }
 
-    public List<Member> getAllMembers() {
-        return (List<Member>) memberRepository.findAll();
+    public Iterable<Member> getAllMembers() {
+        return memberRepository.findAll();
     }
 
     public void deleteMember(long id) {

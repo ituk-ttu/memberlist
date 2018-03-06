@@ -26,7 +26,7 @@ public class MemberController {
 
 
     @GetMapping(value = "")
-    public List<Member> getAllMembers() {
+    public Iterable<Member> getAllMembers() {
         return memberService.getAllMembers();
     }
 
