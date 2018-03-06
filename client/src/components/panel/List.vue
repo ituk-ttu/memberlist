@@ -9,13 +9,18 @@
           th(scope="col") Isikukood
           th(scope="col") E-mail
           th(scope="col") Staatus
+          th
       tbody
-        tr(v-for="person in people")
+        tr
+          td(colspan="6"): input.form-control(v-model="search")
+        tr(v-for="person in searchedPeople")
           td {{ person.id }}
           td {{ person.name }}
           td {{ person.idCode }}
           td {{ person.email }}
           td: member-status-label(:status="person.status")
+          td
+            button.btn.btn-warning.btn-sm Muuda
 </template>
 
 <script>
@@ -25,6 +30,7 @@
     name: 'List',
     data () {
       return {
+        search: '',
         people: [
           {
             'id': 1,
@@ -97,6 +103,13 @@
             'status': 'REPRESENTATIVE'
           }
         ]
+      }
+    },
+    computed: {
+      searchedPeople () {
+        return this.people.filter(person => person.name.toLowerCase().includes(this.search.toLowerCase()) ||
+                                            person.idCode.toLowerCase().includes(this.search.toLowerCase()) ||
+                                            person.email.toLowerCase().includes(this.search.toLowerCase()))
       }
     }
   }
