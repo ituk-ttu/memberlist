@@ -31,8 +31,8 @@ public class MemberController {
     }
 
 
-    @GetMapping(value = "{Id}")
-    public Member getMemberById(long id) {
+    @GetMapping(value = "{id}")
+    public Member getMemberById(@PathVariable(value = "id") long id) {
         return memberService.getMemberById(id);
     }
 
