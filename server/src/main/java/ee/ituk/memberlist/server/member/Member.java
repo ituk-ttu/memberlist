@@ -23,4 +23,5 @@ public class Member {
     private LocalDate dateOfJoining;
     @OneToMany
     private List<Access> accessesCollection;
+
 }
