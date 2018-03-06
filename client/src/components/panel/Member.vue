@@ -23,8 +23,7 @@
         option(value="ALUMNI") Vilistlane
         option(value="GONE") Läinud
     .form-group
-      button(type="button").btn.btn-lg.btn-success Salvesta
-      button(type="button").btn.btn-outline-info.float-right Taasta
+      button(type="button", v-on:click="save()").btn.btn-lg.btn-success Salvesta
 </template>
 
 <script>
@@ -35,6 +34,14 @@
     data () {
       return {
         member: null
+      }
+    },
+    methods: {
+      save: function () {
+        let self = this
+        let tmp = this.member
+        this.member = null
+        this.$http.put(this.$config.API_BASE + '/members/', tmp).then(res => { self.member = res.body })
       }
     },
     mounted: function () {
