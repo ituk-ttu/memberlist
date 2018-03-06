@@ -7,20 +7,24 @@
           th(scope="col") ID
           th(scope="col") Nimi
           th(scope="col") Isikukood
+          th(scope="col") tudengikood
           th(scope="col") E-mail
           th(scope="col") Staatus
           th
       tbody
         tr
-          td(colspan="6"): input.form-control(v-model="search")
-        tr(v-for="person in searchedPeople")
+          td(colspan="7"): input.form-control(v-model="search")
+        tr(v-if="people == null")
+          td(colspan="7").text-center Laadin...
+        tr(v-for="person in searchedPeople" v-else)
           td {{ person.id }}
           td {{ person.name }}
-          td {{ person.idCode }}
+          td {{ person.personalCode }}
+          td {{ person.studentCode }}
           td {{ person.email }}
           td: member-status-label(:status="person.status")
           td
-            button.btn.btn-warning.btn-sm Muuda
+            router-link(:to="{ name: 'Member', params: { id: person.id } }") Vaata
 </template>
 
 <script>
@@ -31,84 +35,17 @@
     data () {
       return {
         search: '',
-        people: [
-          {
-            'id': 1,
-            'name': 'Ennis Bille',
-            'email': 'ebille0@google.com.hk',
-            'idCode': '71944763602',
-            'status': 'REPRESENTATIVE'
-          },
-          {
-            'id': 2,
-            'name': 'Carolann Goodisson',
-            'email': 'cgoodisson1@sakura.ne.jp',
-            'idCode': '44626972479',
-            'status': 'BOARD'
-          },
-          {
-            'id': 3,
-            'name': 'Constance Manon',
-            'email': 'cmanon2@exblog.jp',
-            'idCode': '22543853391',
-            'status': 'GONE'
-          },
-          {
-            'id': 4,
-            'name': 'Ronica Pennaman',
-            'email': 'rpennaman3@issuu.com',
-            'idCode': '75826420824',
-            'status': 'REPRESENTATIVE'
-          },
-          {
-            'id': 5,
-            'name': 'Koral Pearn',
-            'email': 'kpearn4@fastcompany.com',
-            'idCode': '18339583650',
-            'status': 'REPRESENTATIVE'
-          },
-          {
-            'id': 6,
-            'name': 'Kip Creffield',
-            'email': 'kcreffield5@phpbb.com',
-            'idCode': '42762882791',
-            'status': 'ALUMNI'
-          },
-          {
-            'id': 7,
-            'name': 'Garold Fillan',
-            'email': 'gfillan6@phoca.cz',
-            'idCode': '08411861044',
-            'status': 'BOARD'
-          },
-          {
-            'id': 8,
-            'name': 'Rosemonde Fetherston',
-            'email': 'rfetherston7@youku.com',
-            'idCode': '00893410626',
-            'status': 'REPRESENTATIVE'
-          },
-          {
-            'id': 9,
-            'name': 'Fanni Fermin',
-            'email': 'ffermin8@amazon.co.jp',
-            'idCode': '35198227150',
-            'status': 'GONE'
-          },
-          {
-            'id': 10,
-            'name': 'Barbara Grestye',
-            'email': 'bgrestye9@ucsd.edu',
-            'idCode': '78581573775',
-            'status': 'REPRESENTATIVE'
-          }
-        ]
+        people: null
       }
+    },
+    mounted: function () {
+      let self = this
+      this.$http.get(this.$config.API_BASE + '/members').then(res => { self.people = res.body })
     },
     computed: {
       searchedPeople () {
         return this.people.filter(person => person.name.toLowerCase().includes(this.search.toLowerCase()) ||
-                                            person.idCode.toLowerCase().includes(this.search.toLowerCase()) ||
+                                            person.personalCode.toLowerCase().includes(this.search.toLowerCase()) ||
                                             person.email.toLowerCase().includes(this.search.toLowerCase()))
       }
     }

@@ -3,7 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import VueConfig from 'vue-config';
+import VueConfig from 'vue-config'
+import VueResource from 'vue-resource'
 
 import './assets/scss/style.scss'
 import '../node_modules/bootstrap/js/dist/index'
@@ -14,6 +15,8 @@ const config = {
   API_BASE: process.env.API_BASE
 }
 Vue.use(VueConfig, config)
+
+Vue.use(VueResource)
 
 /* eslint-disable no-new */
 new Vue({

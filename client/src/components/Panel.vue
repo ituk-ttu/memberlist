@@ -1,5 +1,5 @@
 <template lang="pug">
-  div
+  div.panel
     nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
       router-link.navbar-brand(to="/") MemberList | ITÜK
       button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navPanel", aria-controls="navPanel",
@@ -16,7 +16,7 @@
         ul.navbar-nav.ml-auto
           li.nav-item.dropdown
             a#navbarDropdown.nav-link.dropdown-toggle(data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
-              | Dropdown link
+              | Richard Hendriks
             .dropdown-menu(aria-labelledby="navbarDropdown")
               router-link.dropdown-item(to="/") Action
               router-link.dropdown-item(to="/") Another action
@@ -38,5 +38,8 @@
 <style scoped>
   .navbar {
     margin-bottom: 20px;
+  }
+  .panel {
+    min-height: 100%;
   }
 </style>

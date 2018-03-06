@@ -24,7 +24,7 @@ export default new Router({
           component: List
         },
         {
-          path: '/user/:id',
+          path: '/member/:id',
           name: 'Member',
           component: Member
         }
