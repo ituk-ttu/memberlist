@@ -3,12 +3,9 @@ package ee.ituk.memberlist.server.member;
 
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 
 @RestController
 @RequestMapping(value = "members")
-
 public class MemberController {
 
     private MemberService memberService;
