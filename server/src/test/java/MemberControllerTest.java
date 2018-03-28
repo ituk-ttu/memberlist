@@ -10,13 +10,14 @@ import org.springframework.test.context.TestContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.util.List;
 
 import static com.sun.org.apache.xerces.internal.util.PropertyState.is;
 import static java.util.Collections.singletonList;
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -41,17 +42,16 @@ public class MemberControllerTest {
         member.setName("testname");
         given(memberController.getMemberById(member.getId())).willReturn(member);
 
-        mockMvc.perform(get("/members/" + member.getId()).contentType(APPLICATION_JSON)).andExpect(status().isOk());
+        mockMvc.perform(get("/members/" + member.getId())
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
     public void getAllMembersResponseStatusIsOkTest() throws Exception {
-        Member member = new Member();
-        Member member1 = new Member();
-        member.setName("testName1");
-        member1.setName("testName2");
-        given(memberController.getMemberById(member.getId())).willReturn(member);
-        mockMvc.perform(get("/members").contentType(APPLICATION_JSON)).andExpect(status().isOk());
+        mockMvc.perform(get("/members")
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -60,9 +60,13 @@ public class MemberControllerTest {
 
         member.setName("koom");
 
-        given(memberController.getMemberById(member.getId())).willReturn(member);
+        given(memberController.getMemberById(member.getId()))
+                .willReturn(member);
 
-        mockMvc.perform(get("/members/" + member.getId()).contentType(APPLICATION_JSON)).andExpect(status().isOk()).andExpect((ResultMatcher) jsonPath("name", is(member.getName())));
+        ResultActions resultActions = mockMvc.perform(get("/members/" + member.getId())
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect((ResultMatcher) jsonPath("/members/" + member.getId(), is(member.getName())));
     }
 
 
@@ -77,7 +81,7 @@ public class MemberControllerTest {
         mockMvc.perform(get("/members")
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("members", hasSize(1)));
+                .andExpect(jsonPath("$", hasSize(1)));
 
     }
 }
