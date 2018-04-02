@@ -11,7 +11,8 @@ import java.util.List;
 @Data
 public class Member {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private long id;
     private String name;
     private String personalCode;
@@ -23,5 +24,4 @@ public class Member {
     private LocalDate dateOfJoining;
     @OneToMany
     private List<Access> accessesCollection;
-
 }

@@ -13,7 +13,8 @@ import javax.persistence.*;
 public class Access {
 
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private long id;
     @ManyToOne
     private Member member;

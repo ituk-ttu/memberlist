@@ -16,8 +16,6 @@ const config = {
 }
 Vue.use(VueConfig, config)
 
-Vue.use(VueResource)
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
