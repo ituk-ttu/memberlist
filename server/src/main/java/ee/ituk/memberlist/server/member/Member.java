@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -24,4 +25,7 @@ public class Member {
     private LocalDate dateOfJoining;
     @OneToMany
     private List<Access> accessesCollection;
+    private Member previousVersion;
+    private Member creator;
+    private LocalDateTime lastModified;
 }
