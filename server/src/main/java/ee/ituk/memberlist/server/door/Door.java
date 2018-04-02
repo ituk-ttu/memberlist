@@ -16,7 +16,7 @@ public class Door {
 
     @Id
     @GeneratedValue
-    private final long id;
+    private long id;
     private String name;
     @OneToMany
     private List<Access> accesses;
