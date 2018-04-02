@@ -61,7 +61,13 @@ public class AuthController {
         if (jwtClaims == null) {
             response.setStatus(401);
         } else {
-            response.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + jwtService.createFromClaims(jwtClaims));
+            Member member = memberService.getMemberById(jwtClaims.getUser().getId());
+            if (member != null) {
+                JwtClaims newJwtClaims = new JwtClaims().setUser(member);
+                response.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + jwtService.createFromClaims(newJwtClaims));
+            } else {
+                response.setStatus(401);
+            }
         }
     }
 
