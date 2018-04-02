@@ -4,7 +4,6 @@ import ee.ituk.memberlist.server.access.Access;
 import lombok.Data;
 
 
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
