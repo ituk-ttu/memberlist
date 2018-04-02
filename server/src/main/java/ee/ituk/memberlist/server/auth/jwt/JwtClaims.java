@@ -12,7 +12,7 @@ public class JwtClaims extends DefaultClaims {
 
     public static final String ADMIN = "admin";
     public static final String CLAIMS_ID = "claimsId";
-    public static final String MEMBER = "member";
+    public static final String USER = "user";
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -29,21 +29,17 @@ public class JwtClaims extends DefaultClaims {
         setValue(CLAIMS_ID, UUID.randomUUID().toString());
     }
 
-    public JwtClaims setAdmin(boolean isAdmin) {
-        setValue(ADMIN, isAdmin);
+    public JwtClaims setUser(JwtUser user) {
+        setValue(USER, user);
         return this;
     }
 
-    public JwtClaims setMember(Member member) {
-        setValue(MEMBER, member);
+    public JwtClaims setUser(Member member) {
+        setValue(USER, new JwtUser(member));
         return this;
     }
 
-    public Member getMember() {
-        return objectMapper.convertValue(get(MEMBER, Object.class), Member.class);
-    }
-
-    public boolean isAdmin() {
-        return Optional.of(get(ADMIN, Boolean.class)).orElse(false);
+    public Member getUser() {
+        return objectMapper.convertValue(get(USER, Object.class), Member.class);
     }
 }

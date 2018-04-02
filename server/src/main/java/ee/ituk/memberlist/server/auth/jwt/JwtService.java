@@ -56,9 +56,6 @@ public class JwtService {
 
     public String createFromClaims(JwtClaims claims) {
         LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);
-        if (claims.getMember() != null && claims.getMember().getStatus().equals(MemberStatus.BOARD)) {
-            claims.setAdmin(true);
-        }
         return new DefaultJwtBuilder().setClaims(claims)
                 .setExpiration(asLegacyDate(now.plus(LIFESPAN)))
                 .setIssuedAt(asLegacyDate(now))

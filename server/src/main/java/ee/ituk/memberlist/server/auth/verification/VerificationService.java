@@ -14,7 +14,7 @@ public class VerificationService {
     private Map<String, Verification> verificationMap = new HashMap<>();
 
     public Verification create(String email) throws VerificationAlreadyExistsException {
-        if (verificationMap.containsKey(email) && isVerificationExpired(verificationMap.get(email))) {
+        if (verificationMap.containsKey(email) && !isVerificationExpired(verificationMap.get(email))) {
             throw new VerificationAlreadyExistsException();
         } else {
             Verification verification = new Verification();

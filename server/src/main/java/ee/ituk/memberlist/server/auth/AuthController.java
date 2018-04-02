@@ -48,7 +48,7 @@ public class AuthController {
     public void getJwt(@PathVariable String email, @PathVariable String key, HttpServletResponse response) {
         Optional<Member> member = memberService.findByEmail(email);
         if (verificationService.verify(email, key) && member.isPresent()) {
-            JwtClaims jwtClaims = new JwtClaims().setMember(member.get());
+            JwtClaims jwtClaims = new JwtClaims().setUser(member.get());
             response.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + jwtService.createFromClaims(jwtClaims));
         } else {
             response.setStatus(401);
