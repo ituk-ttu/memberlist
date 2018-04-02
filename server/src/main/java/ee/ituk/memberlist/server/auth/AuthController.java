@@ -6,6 +6,7 @@ import ee.ituk.memberlist.server.auth.jwt.JwtService;
 import ee.ituk.memberlist.server.auth.verification.Verification;
 import ee.ituk.memberlist.server.auth.verification.VerificationAlreadyExistsException;
 import ee.ituk.memberlist.server.auth.verification.VerificationService;
+import ee.ituk.memberlist.server.config.WebClientUrl;
 import ee.ituk.memberlist.server.member.Member;
 import ee.ituk.memberlist.server.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +36,11 @@ public class AuthController {
     private VerificationService verificationService;
 
     @GetMapping("/{email:.+}")
-    public void getLoginEmail(@PathVariable String email) {
+    public void getLoginEmail(@PathVariable String email, @WebClientUrl String webClientUrl) {
         if (memberService.findByEmail(email).isPresent()) {
             try {
                 Verification verification = verificationService.create(email);
-                System.out.println("Created: " + verification.getKey() + " " + verification.getCreatedAt());
+                verificationService.sendMagicLink(email, verification, webClientUrl);
             } catch (VerificationAlreadyExistsException ignored) {}
         }
     }
