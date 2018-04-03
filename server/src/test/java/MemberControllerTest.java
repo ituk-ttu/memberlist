@@ -10,7 +10,6 @@ import org.springframework.test.context.TestContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.util.List;
@@ -63,10 +62,10 @@ public class MemberControllerTest {
         given(memberController.getMemberById(member.getId()))
                 .willReturn(member);
 
-        ResultActions resultActions = mockMvc.perform(get("/members/" + member.getId())
+        mockMvc.perform(get("/members/" + member.getId())
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect((ResultMatcher) jsonPath("/members/" + member.getId(), is(member.getName())));
+                .andExpect((ResultMatcher) jsonPath("name", is(member.getName())));
     }
 
 
