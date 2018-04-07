@@ -15,6 +15,7 @@ const config = {
   API_BASE: process.env.API_BASE
 }
 Vue.use(VueConfig, config)
+Vue.use(VueResource)
 
 /* eslint-disable no-new */
 new Vue({
