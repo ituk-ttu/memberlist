@@ -37,3 +37,13 @@ dependencies {
     compileOnly('org.springframework.boot:spring-boot-configuration-processor')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
+
+task createApplicationProperties {
+	if (!file('src/main/resources/application.properties').exists())
+		copy {
+			from("src/main/resources/")
+			into("src/main/resources/")
+			include("application.properties.example")
+			rename("application.properties.example", "application.properties")
+		}
+}
