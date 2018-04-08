@@ -1,10 +1,12 @@
 package ee.ituk.memberlist.server.member;
 
 import ee.ituk.memberlist.server.access.Access;
+import ee.ituk.memberlist.server.user.User;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -24,4 +26,9 @@ public class Member {
     private LocalDate dateOfJoining;
     @OneToMany
     private List<Access> accessesCollection;
+    @OneToOne
+    private Member previousVersion;
+    @ManyToOne
+    private User creator;
+    private LocalDateTime lastModified;
 }
