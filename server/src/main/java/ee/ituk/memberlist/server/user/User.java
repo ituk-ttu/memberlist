@@ -14,7 +14,5 @@ public class User {
     @GeneratedValue
     private long id;
     @OneToOne
-    private Member memberInfo;
-    @OneToMany
-    private List<Member> membersChanged;
+    private Member member;
 }
