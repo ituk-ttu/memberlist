@@ -1,5 +1,6 @@
-package ee.ituk.memberlist.server.email;
+package ee.ituk.memberlist.server.config;
 
+import ee.ituk.memberlist.server.email.MailgunConfiguration;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;

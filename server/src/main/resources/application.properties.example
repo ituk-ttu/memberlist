@@ -1,18 +1,16 @@
 spring.datasource.url=jdbc:mariadb://localhost:3306/memberlist
 spring.datasource.username=root
-spring.datasource.password=toor
+spring.datasource.password=
 #when running for the first time:
 #spring.jpa.hibernate.ddl-auto=create
 spring.jpa.hibernate.ddl-auto=update
 logging.level.org.hibernate=ERROR
-security.ignored=/**
-spring.security.enabled=false
-management.security.enabled=false
-security.basic.enabled=false
-spring.session.store-type=jdbc
-jwt.signature.key=hello
-jwt.signature.algorithm=HS512
-email.apiKey=wqewqewqweeq
-email.domain=qweqwqeqweqw
+security.jwt.config.ttl=60
+security.jwt.config.refreshable=10080
+security.jwt.config.key=hello
+security.jwt.config.issuer=chuck
+security.magiclink.time-to-live=15
+email.apiKey=key-wuhiueeiufjewjfewopijfewopfojwoa
+email.domain=asd.ee
 email.fromName=MemberList | ITÜK
 email.fromEmail=dev.noreply@ituk.ee
