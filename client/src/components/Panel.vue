@@ -16,7 +16,7 @@
         ul.navbar-nav.ml-auto
           li.nav-item.dropdown
             a#navbarDropdown.nav-link.dropdown-toggle(data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
-              | Richard Hendriks
+              | {{ token.name }}
             .dropdown-menu(aria-labelledby="navbarDropdown")
               router-link.dropdown-item(to="/") Action
               router-link.dropdown-item(to="/") Another action
@@ -29,8 +29,17 @@
     name: 'Panel',
     data () {
       return {
-        msg: 'Welcome to Your Vue.js App'
+        token: null
       }
+    },
+    methods: {
+      retrieveTokenData: function () {
+        this.token = this.$jwtDec.decode(localStorage.getItem('accessToken'))
+      }
+    },
+    beforeMount: function () {
+      this.retrieveTokenData()
+      this.$on('refreshToken', () => { this.retrieveTokenData() })
     }
   }
 </script>

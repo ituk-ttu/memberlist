@@ -4,6 +4,7 @@ import Panel from '@/components/Panel'
 import List from '@/components/panel/List'
 import Member from '@/components/panel/Member'
 import Login from '@/components/Login'
+import Verify from '@/components/Verify'
 
 Vue.use(Router)
 
@@ -13,6 +14,11 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/login/:email/:key',
+      name: 'Verify',
+      component: Verify
     },
     {
       path: '/',
