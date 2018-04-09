@@ -46,7 +46,10 @@ public class SecurityController {
     public String verify(@RequestBody VerificationRequest verificationRequest, HttpServletResponse response) {
         Optional<User> user = userService.findByEmail(verificationRequest.getEmail());
         Optional<LoginVerification> loginVerification = verificationService.get(verificationRequest.getEmail());
-        if (user.isPresent() && loginVerification.isPresent() && loginVerification.get().getKey().equals(verificationRequest.getKey())) {
+        if (user.isPresent() &&
+                loginVerification.isPresent() &&
+                loginVerification.get().getKey().equals(verificationRequest.getKey()) &&
+                !verificationService.isExpired(loginVerification.get())) {
             response.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + jwtTokenFactory.createAccessToken(new UserContext((long) 1, user.get().getMember().getName(), Collections.emptyList())).getToken());
             return jwtTokenFactory.createRefreshToken(new UserContext((long) 1, user.get().getMember().getName(), Collections.emptyList())).getToken();
         } else {
