@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Component
 public class SimpleCorsFilter extends OncePerRequestFilter {
 
     public static final Pattern ORIGIN_PATTERN = Pattern.compile("(.*)");
