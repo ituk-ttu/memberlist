@@ -45,7 +45,7 @@ public class SecurityController {
     public String verify(@RequestBody VerificationRequest verificationRequest, HttpServletResponse response) {
         Optional<User> user = userService.findByEmail(verificationRequest.getEmail());
         if (user.isPresent()) {
-            response.setHeader(HttpHeaders.AUTHORIZATION, jwtTokenFactory.createAccessToken(new UserContext((long) 1, user.get().getMember().getName(), Collections.emptyList())).getToken());
+            response.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + jwtTokenFactory.createAccessToken(new UserContext((long) 1, user.get().getMember().getName(), Collections.emptyList())).getToken());
             return jwtTokenFactory.createRefreshToken(new UserContext((long) 1, user.get().getMember().getName(), Collections.emptyList())).getToken();
         } else {
             response.setStatus(HttpStatus.NOT_FOUND.value());
@@ -65,7 +65,7 @@ public class SecurityController {
         Claims claims = refreshToken.parseClaims(jwtConfig.getKey()).getBody();
         User user = userService.getUserById(Long.parseLong(claims.getSubject()));
         if (claims.get("refresh", Boolean.class) && user != null) {
-            response.setHeader(HttpHeaders.AUTHORIZATION, jwtTokenFactory.createAccessToken(new UserContext((long) 1, user.getMember().getName(), Collections.emptyList())).getToken());
+            response.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + jwtTokenFactory.createAccessToken(new UserContext((long) 1, user.getMember().getName(), Collections.emptyList())).getToken());
             return jwtTokenFactory.createRefreshToken(new UserContext((long) 1, user.getMember().getName(), Collections.emptyList())).getToken();
         } else {
             response.setStatus(HttpStatus.NOT_FOUND.value());
