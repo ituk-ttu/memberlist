@@ -75,7 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(API_ROOT_URL).authenticated() // Protected API End-points
                 .and()
-                .addFilterBefore(new CorsFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new SimpleCorsFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(buildJwtAuthenticationProcessingFilter(Arrays.asList(permitAllEndpointList),
                         API_ROOT_URL), UsernamePasswordAuthenticationFilter.class);
     }
