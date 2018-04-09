@@ -24,7 +24,7 @@ public class JwtTokenFactory {
         this.config = config;
     }
 
-    public AccessToken createAccessJwtToken(UserContext userContext) {
+    public AccessToken createAccessToken(UserContext userContext) {
 
         Claims claims = Jwts.claims().setSubject(userContext.getId().toString());
         claims.put("scopes", userContext.getAuthorities().stream().map(Object::toString).collect(Collectors.toList()));
