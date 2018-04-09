@@ -28,6 +28,7 @@ public class JwtTokenFactory {
 
         Claims claims = Jwts.claims().setSubject(userContext.getId().toString());
         claims.put("scopes", userContext.getAuthorities().stream().map(Object::toString).collect(Collectors.toList()));
+        claims.put("name", userContext.getName());
 
         LocalDateTime currentTime = LocalDateTime.now();
 

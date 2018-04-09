@@ -2,6 +2,7 @@ package ee.ituk.memberlist.server.security;
 
 import ee.ituk.memberlist.server.config.JwtConfig;
 import ee.ituk.memberlist.server.config.WebClientUrl;
+import ee.ituk.memberlist.server.member.Member;
 import ee.ituk.memberlist.server.security.jwt.TokenExtractor;
 import ee.ituk.memberlist.server.security.jwt.UserContext;
 import ee.ituk.memberlist.server.security.jwt.token.GenericToken;
@@ -16,6 +17,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,7 +52,8 @@ public class SecurityController {
                 loginVerification.isPresent() &&
                 loginVerification.get().getKey().equals(verificationRequest.getKey()) &&
                 !verificationService.isExpired(loginVerification.get())) {
-            response.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + jwtTokenFactory.createAccessToken(new UserContext((long) 1, user.get().getMember().getName(), Collections.emptyList())).getToken());
+            Member member = user.get().getMember();
+            response.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + jwtTokenFactory.createAccessToken(new UserContext((long) 1, member.getName(), Collections.singletonList(new SimpleGrantedAuthority(member.getStatus().toString())))).getToken());
             return jwtTokenFactory.createRefreshToken(new UserContext((long) 1, user.get().getMember().getName(), Collections.emptyList())).getToken();
         } else {
             response.setStatus(HttpStatus.NOT_FOUND.value());
