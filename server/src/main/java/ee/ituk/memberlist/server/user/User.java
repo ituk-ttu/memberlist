@@ -1,25 +1,18 @@
-package ee.ituk.memberlist.server.access;
+package ee.ituk.memberlist.server.user;
 
-import ee.ituk.memberlist.server.door.Door;
 import ee.ituk.memberlist.server.member.Member;
 import lombok.Data;
 
-
 import javax.persistence.*;
-
+import java.util.List;
 
 @Entity
 @Data
-public class Access {
-
+public class User {
 
     @Id
     @GeneratedValue
     private long id;
-    @ManyToOne
+    @OneToOne
     private Member member;
-    @ManyToOne
-    private Door door;
-
-
 }

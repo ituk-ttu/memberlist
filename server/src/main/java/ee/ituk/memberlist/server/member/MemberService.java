@@ -3,13 +3,14 @@ package ee.ituk.memberlist.server.member;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
 public class MemberService {
     private MemberRepository memberRepository;
 
-    public MemberService(MemberRepository memberRepository){
+    public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 
@@ -31,6 +32,10 @@ public class MemberService {
 
     public Member saveMember(Member member) {
         return memberRepository.save(member);
+    }
+
+    public Optional<Member> findByEmail(String email) {
+        return memberRepository.findByEmail(email);
     }
 
 }
