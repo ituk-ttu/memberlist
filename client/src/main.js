@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import VueConfig from 'vue-config'
 import VueResource from 'vue-resource'
+import Icon from 'vue-awesome/components/Icon'
 
 import './assets/scss/style.scss'
 import '../node_modules/bootstrap/js/dist/index'
@@ -16,6 +17,7 @@ const config = {
 }
 Vue.use(VueConfig, config)
 Vue.use(VueResource)
+Vue.component('icon', Icon)
 
 /* eslint-disable no-new */
 new Vue({
