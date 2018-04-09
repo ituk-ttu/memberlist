@@ -1,5 +1,7 @@
 package ee.ituk.memberlist.server.config;
 
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -14,7 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
-public class CorsFilter extends OncePerRequestFilter {
+public class SimpleCorsFilter extends OncePerRequestFilter {
 
     public static final Pattern ORIGIN_PATTERN = Pattern.compile("(.*)");
 

@@ -27,7 +27,7 @@ public class WebClientUrlHandlerMethodArgumentResolver implements HandlerMethodA
 
     private String getReferer(NativeWebRequest webRequest) {
         String referer = webRequest.getHeader(HttpHeaders.REFERER);
-        return referer != null && CorsFilter.ORIGIN_PATTERN.matcher(referer).find() ? referer : null;
+        return referer != null && SimpleCorsFilter.ORIGIN_PATTERN.matcher(referer).find() ? referer : null;
     }
 
 }
