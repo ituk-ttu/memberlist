@@ -1,3 +1,4 @@
+import ee.ituk.memberlist.server.door.Door;
 import ee.ituk.memberlist.server.member.Member;
 import ee.ituk.memberlist.server.member.MemberController;
 import org.junit.Test;
@@ -10,7 +11,6 @@ import org.springframework.test.context.TestContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.util.List;
 
@@ -37,7 +37,6 @@ public class MemberControllerTest {
     @Test
     public void getMemberByIdResposeIsOkTest() throws Exception {
         Member member = new Member();
-
         member.setName("testname");
         given(memberController.getMemberById(member.getId())).willReturn(member);
 
@@ -53,20 +52,22 @@ public class MemberControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @Test
-    public void getMemberByIdTest() throws Exception {
-        Member member = new Member();
-
-        member.setName("koom");
-
-        given(memberController.getMemberById(member.getId()))
-                .willReturn(member);
-
-        mockMvc.perform(get("/members/" + member.getId())
-                .contentType(APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect((ResultMatcher) jsonPath("name", is(member.getName())));
-    }
+//    @Test
+//    public void getMemberByIdTest() throws Exception {
+//        Member member = new Member();
+//
+//        member.setName("koom");
+//
+//        given(memberController.getMemberById(member.getId()))
+//                .willReturn(member);
+//
+//        mockMvc.perform(get("/members/" + member.getId())
+//                .contentType(APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("name", is(member.getName())));
+//    }
+//
+//    //nimi välja, eraldi kontrolloida
 
 
     @Test
@@ -81,7 +82,6 @@ public class MemberControllerTest {
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)));
-
     }
 }
 
