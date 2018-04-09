@@ -6,6 +6,7 @@ import ee.ituk.memberlist.server.security.jwt.TokenExtractor;
 import ee.ituk.memberlist.server.security.jwt.UserContext;
 import ee.ituk.memberlist.server.security.jwt.token.GenericToken;
 import ee.ituk.memberlist.server.security.jwt.token.JwtTokenFactory;
+import ee.ituk.memberlist.server.security.verification.LoginVerification;
 import ee.ituk.memberlist.server.security.verification.VerificationCreationRequest;
 import ee.ituk.memberlist.server.security.verification.VerificationRequest;
 import ee.ituk.memberlist.server.security.verification.VerificationService;
@@ -44,7 +45,8 @@ public class SecurityController {
     @PostMapping("verify")
     public String verify(@RequestBody VerificationRequest verificationRequest, HttpServletResponse response) {
         Optional<User> user = userService.findByEmail(verificationRequest.getEmail());
-        if (user.isPresent()) {
+        Optional<LoginVerification> loginVerification = verificationService.get(verificationRequest.getEmail());
+        if (user.isPresent() && loginVerification.isPresent() && loginVerification.get().getKey().equals(verificationRequest.getKey())) {
             response.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + jwtTokenFactory.createAccessToken(new UserContext((long) 1, user.get().getMember().getName(), Collections.emptyList())).getToken());
             return jwtTokenFactory.createRefreshToken(new UserContext((long) 1, user.get().getMember().getName(), Collections.emptyList())).getToken();
         } else {
