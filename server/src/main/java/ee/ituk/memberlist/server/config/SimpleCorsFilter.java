@@ -3,6 +3,7 @@ package ee.ituk.memberlist.server.config;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -36,7 +37,14 @@ public class SimpleCorsFilter extends OncePerRequestFilter {
                                    "GET, HEAD, POST, PUT, DELETE, OPTIONS, PATCH");
             }
         }
-        filterChain.doFilter(request, response);
+
+        if("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            response.setStatus(HttpStatus.OK.value());
+        }
+        else {
+            filterChain.doFilter(request, response);
+        }
+
     }
 
     private boolean isCrossOriginRequest(final HttpServletRequest request) {
