@@ -34,6 +34,9 @@
       }
     },
     beforeMount: function () {
+      if (localStorage.getItem('accessToken') == null) {
+        this.$router.push({ name: 'Login' })
+      }
       this.retrieveTokenData()
       this.$on('refreshToken', () => { this.retrieveTokenData() })
     }
