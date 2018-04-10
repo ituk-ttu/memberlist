@@ -13,7 +13,7 @@ public class Member {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
     private String name;
     private String personalCode;
     private String studentCode;
