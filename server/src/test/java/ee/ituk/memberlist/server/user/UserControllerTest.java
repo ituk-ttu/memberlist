@@ -59,8 +59,6 @@ public class UserControllerTest {
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("member").value(user.getMember()));
-//                .andExpect(jsonPath("name").value(user.getMember().getName()))
-//                .andExpect(jsonPath("email").value(user.getMember().getEmail()));
     }
 
 }
