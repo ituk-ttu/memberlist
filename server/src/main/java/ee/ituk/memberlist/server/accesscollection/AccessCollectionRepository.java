@@ -1,4 +1,4 @@
-package ee.ituk.memberlist.server.accessCollection;
+package ee.ituk.memberlist.server.accesscollection;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
