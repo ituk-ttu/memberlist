@@ -12,7 +12,7 @@
       .card-body(v-else-if="status === 'LOGGING_IN'")
         .form-group
           label.control-label E-mail
-          input.form-control.disabled(disabled)
+          input.form-control.disabled(disabled v-model="email")
         .form-group
           button.btn.btn-success.btn-block.disabled: icon(name="cog" spin)
       .card-body(v-else)
@@ -37,6 +37,10 @@
         this.status = 'LOGGING_IN'
         this.$http.post(this.$config.API_BASE + '/auth', { email: this.email }).then(res => { self.status = 'SUCCESS' })
       }
+    },
+    mounted: function () {
+      localStorage.removeItem('authToken')
+      localStorage.removeItem('refreshToken')
     }
   }
 </script>
