@@ -1,6 +1,7 @@
 package ee.ituk.memberlist.server.security.jwt;
 
 import ee.ituk.memberlist.server.config.JwtConfig;
+import ee.ituk.memberlist.server.member.MemberStatus;
 import ee.ituk.memberlist.server.security.jwt.token.AuthenticationToken;
 import ee.ituk.memberlist.server.security.jwt.token.GenericToken;
 import io.jsonwebtoken.Claims;
@@ -14,6 +15,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,10 +32,8 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
         Jws<Claims> jwsClaims = token.parseClaims(jwtConfig.getKey());
         Long id = Long.valueOf(jwsClaims.getBody().getSubject());
         String name = jwsClaims.getBody().get("name", String.class);
-        List<String> scopes = jwsClaims.getBody().get("scopes", List.class);
-        List<GrantedAuthority> authorities = scopes.stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+        String memberStatus = jwsClaims.getBody().get("status", String.class);
+        List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(memberStatus));
 
         UserContext context = new UserContext(id, name, authorities);
 
