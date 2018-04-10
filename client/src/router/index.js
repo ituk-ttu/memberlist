@@ -30,7 +30,7 @@ export default new Router({
           component: List
         },
         {
-          path: '/member/:id',
+          path: '/user/:id',
           name: 'Member',
           component: Member
         }

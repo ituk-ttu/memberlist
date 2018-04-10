@@ -1,18 +1,18 @@
 <template lang="pug">
   div.panel
     nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
-      router-link.navbar-brand(:to="{ name: 'List' }") MemberList | ITÜK
+      router-link.navbar-brand(:to="token.status === 'BOARD' ? { name: 'List' } : { name: 'Member', params: { id: token.sub } }") MemberList | ITÜK
       button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navPanel", aria-controls="navPanel",
       aria-expanded="false", aria-label="Toggle navigation")
         span.navbar-toggler-icon
       #navPanel.collapse.navbar-collapse
         ul.navbar-nav.mr-auto
           li.nav-item
-            router-link.nav-link(:to="{ name: 'List' }") List
+            router-link.nav-link(:to="{ name: 'List' }" v-if="token.status === 'BOARD'") List
           li.nav-item
             router-link.nav-link(:to="{ name: 'List' }") Minu andmed
           li.nav-item
-            router-link.nav-link(:to="{ name: 'List' }") Logi
+            router-link.nav-link(:to="{ name: 'List' }" v-if="token.status === 'BOARD'") Logi
         ul.navbar-nav.ml-auto
           li.nav-item
             router-link.nav-link(:to="{ name: 'Login' }") Logi välja ({{ token.name }})

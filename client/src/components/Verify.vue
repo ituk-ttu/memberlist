@@ -23,7 +23,11 @@
           self.status = 'SUCCESS'
           localStorage.setItem('accessToken', res.headers.get('Authorization').substring(7))
           localStorage.setItem('refreshToken', res.body)
-          self.$router.push({ name: 'List' })
+          if (this.$jwtDec.decode(localStorage.getItem('accessToken')).status === 'BOARD') {
+            self.$router.push({ name: 'List' })
+          } else {
+            self.$router.push({ name: 'Member', params: { id: this.$jwtDec.decode(localStorage.getItem('accessToken')).sub } })
+          }
         }, res => {
           self.status = 'FAIL'
         })
