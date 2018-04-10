@@ -39,7 +39,7 @@
       }
     },
     mounted: function () {
-      localStorage.removeItem('authToken')
+      localStorage.removeItem('accessToken')
       localStorage.removeItem('refreshToken')
     }
   }
