@@ -73,7 +73,7 @@ public class SecurityController {
         Claims claims = refreshToken.parseClaims(jwtConfig.getKey()).getBody();
         User user = userService.getUserById(Long.parseLong(claims.getSubject()));
         if (claims.get("refresh", Boolean.class) && user != null) {
-            response.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + jwtTokenFactory.createAccessToken(new UserContext(user.getId(), user.getMember().getName(), Collections.emptyList())).getToken());
+            response.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + jwtTokenFactory.createAccessToken(new UserContext(user.getId(), user.getMember().getName(),  Collections.singletonList(new SimpleGrantedAuthority(user.getMember().getStatus().toString())))).getToken());
             return jwtTokenFactory.createRefreshToken(new UserContext(user.getId(), user.getMember().getName(), Collections.emptyList())).getToken();
         } else {
             response.setStatus(HttpStatus.NOT_FOUND.value());
