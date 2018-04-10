@@ -1,6 +1,5 @@
-package ee.ituk.memberlist.server.user;
+package ee.ituk.memberlist.server.door;
 
-import ee.ituk.memberlist.server.member.Member;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static java.util.Collections.singletonList;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -20,47 +19,39 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value = UserController.class, secure = false)
-public class UserControllerTest {
+@WebMvcTest(value = DoorController.class, secure = false)
+public class DoorControllerTest {
 
     @Autowired
     private MockMvc mvc;
 
     @MockBean
-    private UserController userController;
+    private DoorController doorController;
+
 
     @Test
-    public void getAllUsersTest() throws Exception {
-        User user = new User();
-        List<User> allUsers = singletonList(user);
+    public void getAllDoors() throws Exception {
+        Door door = new Door();
+        List<Door> allDoors = singletonList(door);
 
-        given(userController.getAllUsers()).willReturn(allUsers);
+        given(doorController.getAllDoors()).willReturn(allDoors);
 
-        mvc.perform(get("/users").contentType(APPLICATION_JSON))
+        mvc.perform(get("/doors").contentType(APPLICATION_JSON))
                 .andExpect(status()
                         .isOk())
                 .andExpect(jsonPath("$", hasSize(1)));
     }
 
     @Test
-    public void getUserByIdTest() throws Exception {
-        Member member = new Member();
-        User user = new User();
+    public void getDoorById() throws Exception {
+        Door door = new Door();
+        door.setName("testName");
+        given(doorController.getDoorById(door.getId())).willReturn(door);
 
-        member.setName("testName");
-        member.setEmail("testmail@gmail.com");
-
-        user.setMember(member);
-
-        given(userController.getUserById(user.getId()))
-                .willReturn(user);
-
-        mvc.perform(get("/users/" + user.getId())
+        mvc.perform(get("/doors/" + door.getId())
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("member").value(user.getMember()));
+                .andExpect(jsonPath("name").value(door.getName()));
     }
-
-
 
 }
