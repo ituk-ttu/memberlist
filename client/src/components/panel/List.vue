@@ -25,7 +25,7 @@
           td {{ person.member.email }}
           td: member-status-label(:status="person.member.status")
           td
-            router-link(:to="{ name: 'Member', params: { id: person.id } }").text-warning Muuda
+            router-link(:to="{ name: 'Member', params: { id: person.id } }").text-info Vaata
 </template>
 
 <script>

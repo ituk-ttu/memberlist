@@ -2,6 +2,7 @@
   .container.loading-container(v-if="user == null")
     icon(name="cog" scale="3" spin)
   .container(v-else)
+    router-link.btn.btn-info(:to="{ name: 'Member', params: { id: user.id } }")
     .form-group
       label.control-label Nimi:
       input.form-control.form-control-lg(v-model="user.member.name" required)
@@ -42,7 +43,7 @@
         let tmp = this.user
         this.user = null
         delete tmp.member.id
-        this.$http.put(this.$config.API_BASE + '/users/update/' + tmp.id, tmp.member).then(res => { self.user = res.body })
+        this.$http.put(this.$config.API_BASE + '/users/update/' + tmp.id, tmp.member).then(res => { self.$router.push({ name: 'Member', params: { id: tmp.id } }) })
       }
     },
     mounted: function () {
