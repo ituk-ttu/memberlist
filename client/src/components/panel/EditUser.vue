@@ -2,7 +2,7 @@
   .container.loading-container(v-if="user == null")
     icon(name="cog" scale="3" spin)
   .container(v-else)
-    router-link.btn.btn-info(:to="{ name: 'Member', params: { id: user.id } }")
+    router-link.btn.btn-info(:to="{ name: 'Member', params: { id: user.id } }") Tagasi
     .form-group
       label.control-label Nimi:
       input.form-control.form-control-lg(v-model="user.member.name" required)

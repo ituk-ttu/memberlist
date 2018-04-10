@@ -3,7 +3,8 @@
     icon(name="cog" scale="3" spin)
   .container(v-else)
     h1 {{ user.member.name }}
-      router-link.btn.btn-warning.float-right(:to="{ name: 'EditMember', params: { id: user.id } }") Muuda
+      router-link.btn.btn-warning.float-right(:to="{ name: 'EditMember', params: { id: user.id } }"
+          v-if="$parent.token.status === 'BOARD'") Muuda
     p
       strong Isikukood: &nbsp
       | {{ user.member.personalCode }}
