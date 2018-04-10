@@ -12,6 +12,8 @@
           li.nav-item
             router-link.nav-link(:to="{ name: 'List' }") Minu andmed
           li.nav-item
+            router-link.nav-link(:to="{ name: 'AccessList' }" v-if="token.status === 'BOARD'") Ligipääsuõigused
+          li.nav-item
             router-link.nav-link(:to="{ name: 'List' }" v-if="token.status === 'BOARD'") Logi
         ul.navbar-nav.ml-auto
           li.nav-item

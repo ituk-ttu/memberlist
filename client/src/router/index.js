@@ -5,6 +5,7 @@ import List from '@/components/panel/List'
 import Member from '@/components/panel/Member'
 import Login from '@/components/Login'
 import Verify from '@/components/Verify'
+import AccessList from '@/components/panel/AccessList'
 
 Vue.use(Router)
 
@@ -33,6 +34,11 @@ export default new Router({
           path: '/user/:id',
           name: 'Member',
           component: Member
+        },
+        {
+          path: '/accessList',
+          name: 'AccessList',
+          component: AccessList
         }
       ]
     }
