@@ -1,6 +1,5 @@
 package ee.ituk.memberlist.server.door;
 
-import ee.ituk.memberlist.server.access.Access;
 import lombok.Data;
 
 
@@ -16,7 +15,5 @@ public class Door {
     private long id;
     @Column(unique = true)
     private String name;
-    @OneToMany
-    private List<Access> accesses;
 
 }

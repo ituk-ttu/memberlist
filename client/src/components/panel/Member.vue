@@ -25,12 +25,23 @@
           th Email
           th Staatus
       tbody
-        tr(v-for="version in history")
+        tr(v-for="version in userHistory")
           td {{ version.name }}
           td {{ version.personalCode }}
           td {{ version.studentCode }}
           td {{ version.email }}
           td: member-status-label(:status="version.status")
+    h3 Ligipääsuõigused
+    table.table(v-if="doors != null")
+      thead
+        tr
+          th(v-for="door in doors") {{ door.name }}
+      tbody
+        tr(v-for="version in accessHistory")
+          td(v-for="door in doors")
+            icon.text-success(name="check" v-if="accessContainsDoor(version.doors, door)")
+            icon.text-muted(name="times" v-else)
+    icon(name="cog" scale="1.5" spin v-else)
 </template>
 
 <script>
@@ -42,7 +53,19 @@
     data () {
       return {
         user: null,
-        history: []
+        userHistory: [],
+        accessHistory: [],
+        doors: null
+      }
+    },
+    methods: {
+      accessContainsDoor: function (access, door) {
+        for (let i = 0; i < access.length; i++) {
+          if (door.name === access[i].name) {
+            return true
+          }
+        }
+        return false
       }
     },
     mounted: function () {
@@ -51,9 +74,17 @@
         self.user = res.body
         let member = self.user.member.previousVersion
         while (member != null) {
-          self.history.push(member)
+          self.userHistory.push(member)
           member = member.previousVersion
         }
+        let accessCollection = self.user.accessCollection
+        while (accessCollection != null) {
+          self.accessHistory.push(accessCollection)
+          accessCollection = accessCollection.previousVersion
+        }
+      })
+      this.$http.get(this.$config.API_BASE + '/doors').then(res => {
+        self.doors = res.body
       })
     }
   }
