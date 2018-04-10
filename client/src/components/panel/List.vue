@@ -18,12 +18,12 @@
         tr(v-if="people == null")
           td(colspan="7").text-center Laadin...
         tr(v-for="person in searchedPeople" v-else)
-          td {{ person.id }}
-          td {{ person.name }}
-          td {{ person.personalCode }}
-          td {{ person.studentCode }}
-          td {{ person.email }}
-          td: member-status-label(:status="person.status")
+          td {{ person.member.id }}
+          td {{ person.member.name }}
+          td {{ person.member.personalCode }}
+          td {{ person.member.studentCode }}
+          td {{ person.member.email }}
+          td: member-status-label(:status="person.member.status")
           td
             router-link(:to="{ name: 'Member', params: { id: person.id } }").text-warning Muuda
 </template>
@@ -41,16 +41,16 @@
     },
     mounted: function () {
       let self = this
-      this.$http.get(this.$config.API_BASE + '/members').then(res => { self.people = res.body })
+      this.$http.get(this.$config.API_BASE + '/users').then(res => { self.people = res.body })
     },
     computed: {
       searchedPeople () {
-        return this.people.filter(person => person.name === null ||
-                                            person.personalCode === null ||
-                                            person.email === null ||
-                                            person.name.toLowerCase().includes(this.search.toLowerCase()) ||
-                                            person.personalCode.toLowerCase().includes(this.search.toLowerCase()) ||
-                                            person.email.toLowerCase().includes(this.search.toLowerCase()))
+        return this.people.filter(person => person.member.name === null ||
+                                            person.member.personalCode === null ||
+                                            person.member.email === null ||
+                                            person.member.name.toLowerCase().includes(this.search.toLowerCase()) ||
+                                            person.member.personalCode.toLowerCase().includes(this.search.toLowerCase()) ||
+                                            person.member.email.toLowerCase().includes(this.search.toLowerCase()))
       }
     }
   }

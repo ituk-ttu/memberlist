@@ -1,12 +1,25 @@
 <template lang="pug">
   .container
     .card.border-secondary
-      .card-header Login
-      .card-body
+      .card-header Logi sisse
+      .card-body(v-if="status === 'WAITING'")
+          form(v-on:submit.prevent="login()")
+            .form-group
+              label.control-label E-mail
+              input.form-control(v-model="email")
+            .form-group
+              button.btn.btn-success.btn-block(type="submit") Logi sisse
+      .card-body(v-else-if="status === 'LOGGING_IN'")
         .form-group
-          input.form-control
+          label.control-label E-mail
+          input.form-control.disabled(disabled v-model="email")
         .form-group
-          button.btn.btn-success.btn-block Go
+          button.btn.btn-success.btn-block.disabled: icon(name="cog" spin)
+      .card-body(v-else)
+        .form-group
+          p Vaata oma postkasti!
+        .form-group
+          button.btn.btn-success.btn-block.disabled: icon(name="check")
 </template>
 
 <script>
@@ -14,8 +27,20 @@
     name: 'Login',
     data () {
       return {
-        email: ''
+        email: '',
+        status: 'WAITING'
       }
+    },
+    methods: {
+      login: function () {
+        let self = this
+        this.status = 'LOGGING_IN'
+        this.$http.post(this.$config.API_BASE + '/auth', { email: this.email }).then(res => { self.status = 'SUCCESS' })
+      }
+    },
+    mounted: function () {
+      localStorage.removeItem('accessToken')
+      localStorage.removeItem('refreshToken')
     }
   }
 </script>

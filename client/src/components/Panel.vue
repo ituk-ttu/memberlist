@@ -1,26 +1,22 @@
 <template lang="pug">
   div.panel
     nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
-      router-link.navbar-brand(to="/") MemberList | ITÜK
+      router-link.navbar-brand(:to="token.status === 'BOARD' ? { name: 'List' } : { name: 'Member', params: { id: token.sub } }") MemberList | ITÜK
       button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navPanel", aria-controls="navPanel",
       aria-expanded="false", aria-label="Toggle navigation")
         span.navbar-toggler-icon
       #navPanel.collapse.navbar-collapse
         ul.navbar-nav.mr-auto
-          li.nav-item.active
-            router-link.nav-link(to="/") List
           li.nav-item
-            router-link.nav-link(to="/") Minu andmed
+            router-link.nav-link(:to="{ name: 'List' }" v-if="token.status === 'BOARD'") List
           li.nav-item
-            router-link.nav-link(to="/") Logi
+            router-link.nav-link(:to="{ name: 'List' }") Minu andmed
+          li.nav-item
+            router-link.nav-link(:to="{ name: 'List' }" v-if="token.status === 'BOARD'") Logi
         ul.navbar-nav.ml-auto
-          li.nav-item.dropdown
-            a#navbarDropdown.nav-link.dropdown-toggle(data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
-              | Richard Hendriks
-            .dropdown-menu(aria-labelledby="navbarDropdown")
-              router-link.dropdown-item(to="/") Action
-              router-link.dropdown-item(to="/") Another action
-              router-link.dropdown-item(to="/") Something else here
+          li.nav-item
+            router-link.nav-link(:to="{ name: 'Login' }") Logi välja ({{ token.name }})
+
     router-view
 </template>
 
@@ -29,8 +25,20 @@
     name: 'Panel',
     data () {
       return {
-        msg: 'Welcome to Your Vue.js App'
+        token: null
       }
+    },
+    methods: {
+      retrieveTokenData: function () {
+        this.token = this.$jwtDec.decode(localStorage.getItem('accessToken'))
+      }
+    },
+    beforeMount: function () {
+      if (localStorage.getItem('accessToken') == null) {
+        this.$router.push({ name: 'Login' })
+      }
+      this.retrieveTokenData()
+      this.$on('refreshToken', () => { this.retrieveTokenData() })
     }
   }
 </script>
