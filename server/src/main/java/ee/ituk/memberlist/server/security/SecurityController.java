@@ -54,7 +54,7 @@ public class SecurityController {
                 !verificationService.isExpired(loginVerification.get())) {
             Member member = user.get().getMember();
             response.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + jwtTokenFactory.createAccessToken(new UserContext((long) 1, member.getName(), Collections.singletonList(new SimpleGrantedAuthority(member.getStatus().toString())))).getToken());
-            return jwtTokenFactory.createRefreshToken(new UserContext((long) 1, user.get().getMember().getName(), Collections.emptyList())).getToken();
+            return jwtTokenFactory.createRefreshToken(new UserContext(user.get().getId(), user.get().getMember().getName(), Collections.emptyList())).getToken();
         } else {
             response.setStatus(HttpStatus.NOT_FOUND.value());
             return "";
@@ -74,7 +74,7 @@ public class SecurityController {
         User user = userService.getUserById(Long.parseLong(claims.getSubject()));
         if (claims.get("refresh", Boolean.class) && user != null) {
             response.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + jwtTokenFactory.createAccessToken(new UserContext((long) 1, user.getMember().getName(), Collections.emptyList())).getToken());
-            return jwtTokenFactory.createRefreshToken(new UserContext((long) 1, user.getMember().getName(), Collections.emptyList())).getToken();
+            return jwtTokenFactory.createRefreshToken(new UserContext(user.getId(), user.getMember().getName(), Collections.emptyList())).getToken();
         } else {
             response.setStatus(HttpStatus.NOT_FOUND.value());
             return "";
