@@ -32,6 +32,7 @@ public class MemberControllerTest {
         Member member = new Member();
 
         member.setName("koom");
+        member.setId(1L);
 
         given(memberController.getMemberById(member.getId()))
                 .willReturn(member);
@@ -46,6 +47,7 @@ public class MemberControllerTest {
     public void getAllMembersReturnsCorrectSizeTest() throws Exception {
         Member member = new Member();
         member.setName("uus");
+        member.setId(1L);
         List<Member> allMembers = singletonList(member);
 
         given(memberController.getAllMembers()).willReturn(allMembers);
@@ -61,6 +63,7 @@ public class MemberControllerTest {
         Member member = new Member();
 
         member.setName("koom");
+        member.setId(1L);
 
         given(memberController.getMemberById(member.getId()))
                 .willReturn(member);
