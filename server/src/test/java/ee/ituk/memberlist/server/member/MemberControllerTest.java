@@ -1,6 +1,5 @@
-import ee.ituk.memberlist.server.door.Door;
-import ee.ituk.memberlist.server.member.Member;
-import ee.ituk.memberlist.server.member.MemberController;
+package ee.ituk.memberlist.server.member;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +11,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
+
 import java.util.List;
 
-import static com.sun.org.apache.xerces.internal.util.PropertyState.is;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.BDDMockito.given;
@@ -37,6 +36,7 @@ public class MemberControllerTest {
     @Test
     public void getMemberByIdResposeIsOkTest() throws Exception {
         Member member = new Member();
+
         member.setName("testname");
         given(memberController.getMemberById(member.getId())).willReturn(member);
 
@@ -52,22 +52,20 @@ public class MemberControllerTest {
                 .andExpect(status().isOk());
     }
 
-//    @Test
-//    public void getMemberByIdTest() throws Exception {
-//        Member member = new Member();
-//
-//        member.setName("koom");
-//
-//        given(memberController.getMemberById(member.getId()))
-//                .willReturn(member);
-//
-//        mockMvc.perform(get("/members/" + member.getId())
-//                .contentType(APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("name", is(member.getName())));
-//    }
-//
-//    //nimi välja, eraldi kontrolloida
+    @Test
+    public void getMemberByIdTest() throws Exception {
+        Member member = new Member();
+
+        member.setName("koom");
+
+        given(memberController.getMemberById(member.getId()))
+                .willReturn(member);
+
+        mockMvc.perform(get("/members/" + member.getId())
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("name").value(member.getName()));
+    }
 
 
     @Test
@@ -82,6 +80,22 @@ public class MemberControllerTest {
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)));
+    }
+
+    @Test
+    public void deleteMemberTest() throws Exception {
+        Member member = new Member();
+
+        member.setName("koom");
+
+        given(memberController.getMemberById(member.getId()))
+                .willReturn(member);
+
+        mockMvc.perform(get("/members/delete" + member.getId())
+                .contentType(APPLICATION_JSON));
+
+        given(memberController.getMemberById(member.getId()))
+                .willReturn(null);
     }
 }
 
