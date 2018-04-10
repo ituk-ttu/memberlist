@@ -24,14 +24,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = MemberController.class, secure = false)
-@ContextConfiguration(classes = {TestContext.class, WebAppConfiguration.class})
 public class MemberControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
     private MemberController memberController;
-
 
     @Test
     public void getMemberByIdResposeIsOkTest() throws Exception {
@@ -66,7 +64,6 @@ public class MemberControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("name").value(member.getName()));
     }
-
 
     @Test
     public void getAllMembersReturnsCorrectSizeTest() throws Exception {
