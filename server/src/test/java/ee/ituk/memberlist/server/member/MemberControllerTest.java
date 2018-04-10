@@ -1,5 +1,5 @@
-import ee.ituk.memberlist.server.member.Member;
-import ee.ituk.memberlist.server.member.MemberController;
+package ee.ituk.memberlist.server.member;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +10,10 @@ import org.springframework.test.context.TestContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
+
 
 import java.util.List;
 
-import static com.sun.org.apache.xerces.internal.util.PropertyState.is;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.BDDMockito.given;
@@ -65,7 +64,7 @@ public class MemberControllerTest {
         mockMvc.perform(get("/members/" + member.getId())
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect((ResultMatcher) jsonPath("name", is(member.getName())));
+                .andExpect(jsonPath("name").value(member.getName()));
     }
 
 
