@@ -10,7 +10,7 @@
           li.nav-item
             router-link.nav-link(:to="{ name: 'List' }" v-if="token.status === 'BOARD'") List
           li.nav-item
-            router-link.nav-link(:to="{ name: 'List' }") Minu andmed
+            router-link.nav-link(:to="{ name: 'Member', params: { id: token.sub } }") Minu andmed
           li.nav-item
             router-link.nav-link(:to="{ name: 'AccessList' }" v-if="token.status === 'BOARD'") Ligipääsuõigused
           li.nav-item
