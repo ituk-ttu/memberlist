@@ -78,5 +78,21 @@ public class MemberControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)));
     }
+
+    @Test
+    public void deleteMemberTest() throws Exception {
+        Member member = new Member();
+
+        member.setName("koom");
+
+        given(memberController.getMemberById(member.getId()))
+                .willReturn(member);
+
+        mockMvc.perform(get("/members/delete" + member.getId())
+                .contentType(APPLICATION_JSON));
+
+        given(memberController.getMemberById(member.getId()))
+                .willReturn(null);
+    }
 }
 
