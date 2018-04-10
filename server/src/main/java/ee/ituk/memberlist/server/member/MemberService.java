@@ -30,10 +30,6 @@ public class MemberService {
         memberRepository.delete(id);
     }
 
-    public Member saveMember(Member member) {
-        return memberRepository.save(member);
-    }
-
     public Optional<Member> findByEmail(String email) {
         return memberRepository.findByEmail(email);
     }

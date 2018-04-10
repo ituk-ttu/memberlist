@@ -1,5 +1,6 @@
 package ee.ituk.memberlist.server.user;
 
+import ee.ituk.memberlist.server.accessCollection.AccessCollection;
 import ee.ituk.memberlist.server.member.Member;
 import lombok.Data;
 
@@ -15,4 +16,5 @@ public class User {
     private long id;
     @OneToOne
     private Member member;
+    private AccessCollection accessCollection;
 }

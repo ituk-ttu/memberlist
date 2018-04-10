@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "accesses")
-
 public class AccessController {
 
     private AccessService accessService;

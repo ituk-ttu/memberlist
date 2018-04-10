@@ -36,7 +36,7 @@ public class MemberController {
 
     @PutMapping
     public Member saveMemberById(@RequestBody Member member) {
-        return memberService.saveMember(member);
+        return memberService.addMember(member);
     }
 
 
