@@ -5,6 +5,7 @@ import List from '@/components/panel/List'
 import Member from '@/components/panel/Member'
 import Login from '@/components/Login'
 import Verify from '@/components/Verify'
+import EditUser from '@/components/panel/EditUser'
 import AccessList from '@/components/panel/AccessList'
 
 Vue.use(Router)
@@ -39,6 +40,11 @@ export default new Router({
           path: '/accessList',
           name: 'AccessList',
           component: AccessList
+        },
+        {
+          path: '/user/:id/edit',
+          name: 'EditMember',
+          component: EditUser
         }
       ]
     }

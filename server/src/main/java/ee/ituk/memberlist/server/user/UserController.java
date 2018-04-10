@@ -1,6 +1,10 @@
 package ee.ituk.memberlist.server.user;
 
+import ee.ituk.memberlist.server.member.Member;
+import ee.ituk.memberlist.server.member.MemberService;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 
 @RestController
@@ -8,12 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 public class UserController {
 
+    @Resource
     private UserService userService;
-
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    @Resource
+    private MemberService memberService;
 
 
     @PostMapping(value = "add")
@@ -39,5 +41,12 @@ public class UserController {
         return userService.saveUser(user);
     }
 
-
+    @PutMapping(value = "/update/{id}")
+    public User updateMemberInfo(@RequestBody Member member, @PathVariable(value="id") long id) {
+        User user = userService.getUserById(id);
+        Member previousMember = user.getMember();
+        member.setPreviousVersion(previousMember);
+        user.setMember(memberService.addMember(member));
+        return userService.saveUser(user);
+    }
 }

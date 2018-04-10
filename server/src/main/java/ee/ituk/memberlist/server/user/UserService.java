@@ -1,5 +1,6 @@
 package ee.ituk.memberlist.server.user;
 
+import ee.ituk.memberlist.server.member.Member;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -36,4 +37,5 @@ public class UserService {
     public Optional<User> findByEmail(String email) {
         return userRepository.findByMemberEmail(email);
     }
+
 }
