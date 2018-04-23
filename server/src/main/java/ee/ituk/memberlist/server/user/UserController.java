@@ -5,6 +5,8 @@ import ee.ituk.memberlist.server.member.MemberService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 
 @RestController
@@ -48,5 +50,10 @@ public class UserController {
         member.setPreviousVersion(previousMember);
         user.setMember(memberService.addMember(member));
         return userService.saveUser(user);
+    }
+
+    @GetMapping("/whoami")
+    public Principal whoAmI(HttpServletRequest request) {
+        return request.getUserPrincipal();
     }
 }
