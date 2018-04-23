@@ -26,7 +26,7 @@ Vue.http.interceptors.push((request, next) => {
   request.headers.set('Authorization', 'Bearer ' + localStorage.getItem('accessToken'))
   next((response) => {
     if (response.status === 401 && localStorage.getItem('refreshToken') != null) {
-      Vue.http.post(process.env.API_BASE + '/auth/refresh', { token: localStorage.getItem('refreshToken') })
+      Vue.http.post(process.env.API_BASE + '/auth/refresh', {token: localStorage.getItem('refreshToken')})
         .then(res => {
           localStorage.setItem('accessToken', res.headers.get('Authorization').substring(7))
           localStorage.setItem('refreshToken', res.body)
@@ -35,8 +35,12 @@ Vue.http.interceptors.push((request, next) => {
           return Vue.http[method](request.url, request.params)
         },
         res => {
-          Vue.router.push({ name: 'Login' })
+          Vue.router.push({name: 'Login'})
         })
+    } else if (response.status === 403) {
+      // A really bad way to handle this
+      localStorage.removeItem('accessToken')
+      localStorage.removeItem('refreshToken')
     } else {
       return response
     }
@@ -47,6 +51,6 @@ Vue.http.interceptors.push((request, next) => {
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: {App},
   template: '<App/>'
 })

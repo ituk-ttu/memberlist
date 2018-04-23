@@ -26,6 +26,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public static final String ADDITIONAL_AUTH_URL_PATTERN = "/auth/**";
     public static final String API_ROOT_URL = "/**";
     public static final String SWAGGER_UI_URL = "/swagger-ui.html";
+    public static final String SWAGGER_RESOURCES_URL = "/swagger-resources/**";
+    public static final String WEBJARS_PATH = "/webjars/**";
+    public static final String API_DOCS_URL = "/v2/api-docs";
 
     @Resource
     private JwtAuthenticationProvider jwtAuthenticationProvider;
@@ -60,7 +63,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         String[] permitAllEndpointList = new String[]{
                 AUTHENTICATION_URL,
                 ADDITIONAL_AUTH_URL_PATTERN,
-                SWAGGER_UI_URL
+                SWAGGER_UI_URL,
+                SWAGGER_RESOURCES_URL,
+                WEBJARS_PATH,
+                API_DOCS_URL
         };
 
         http
