@@ -5,6 +5,7 @@ import ee.ituk.memberlist.server.user.User;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -18,4 +19,7 @@ public class AccessCollection {
     private AccessCollection previousVersion;
     @ManyToMany
     private List<Door> doors;
+    private LocalDateTime lastModified;
+    @ManyToOne
+    private User creator;
 }

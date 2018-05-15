@@ -1,5 +1,6 @@
 package ee.ituk.memberlist.server.user;
 
+import ee.ituk.memberlist.server.accesscollection.AccessCollection;
 import ee.ituk.memberlist.server.member.Member;
 import ee.ituk.memberlist.server.member.MemberService;
 import org.springframework.web.bind.annotation.*;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.time.LocalDateTime;
 
 
 @RestController
@@ -48,7 +50,18 @@ public class UserController {
         User user = userService.getUserById(id);
         Member previousMember = user.getMember();
         member.setPreviousVersion(previousMember);
+        member.setLastModified(LocalDateTime.now());
         user.setMember(memberService.addMember(member));
+        return userService.saveUser(user);
+    }
+
+    @PutMapping(value = "/access/{id}")
+    public User updateAccessInfo(@RequestBody AccessCollection newAccess, @PathVariable(value="id") long id) {
+        User user = userService.getUserById(id);
+        AccessCollection oldAccess = user.getAccessCollection();
+        newAccess.setPreviousVersion(oldAccess);
+        newAccess.setLastModified(LocalDateTime.now());
+        user.setAccessCollection(newAccess);
         return userService.saveUser(user);
     }
 
