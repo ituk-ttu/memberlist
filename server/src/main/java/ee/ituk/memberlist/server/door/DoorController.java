@@ -12,7 +12,7 @@ public class DoorController {
         this.doorService = doorService;
     }
 
-    @PostMapping(value = "add")
+    @PostMapping
     public Door addDoor(@RequestBody Door door) {
         return doorService.addDoor(door);
     }

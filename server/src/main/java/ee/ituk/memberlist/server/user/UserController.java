@@ -1,6 +1,7 @@
 package ee.ituk.memberlist.server.user;
 
 import ee.ituk.memberlist.server.accesscollection.AccessCollection;
+import ee.ituk.memberlist.server.accesscollection.AccessCollectionService;
 import ee.ituk.memberlist.server.member.Member;
 import ee.ituk.memberlist.server.member.MemberService;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,8 @@ public class UserController {
     private UserService userService;
     @Resource
     private MemberService memberService;
+    @Resource
+    private AccessCollectionService accessService;
 
 
     @PostMapping(value = "add")
@@ -61,7 +64,7 @@ public class UserController {
         AccessCollection oldAccess = user.getAccessCollection();
         newAccess.setPreviousVersion(oldAccess);
         newAccess.setLastModified(LocalDateTime.now());
-        user.setAccessCollection(newAccess);
+        user.setAccessCollection(accessService.addCollection(newAccess));
         return userService.saveUser(user);
     }
 
